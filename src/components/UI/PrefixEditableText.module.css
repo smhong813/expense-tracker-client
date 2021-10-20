@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.prefix {
+  position: absolute;
+  left: 1rem;
+}
+
+.editableText {
+  flex-grow: 1;
+  padding-left: 2rem;
+}

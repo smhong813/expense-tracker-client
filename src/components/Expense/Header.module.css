@@ -1,0 +1,69 @@
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.totalContainer {
+  margin: 1.4rem 0 2rem;
+  color: #333;
+}
+
+.totalText {
+  margin-bottom: 0.6rem;
+}
+
+.amount {
+  font-size: 1.4rem;
+  color: black;
+}
+
+.button {
+  width: 100%;
+  height: 3rem;
+  padding: 0 2rem;
+  background-color: whitesmoke;
+  border-radius: 1.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(228, 228, 228);
+  border: none;
+}
+
+@media (min-width: 992px) {
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 3rem;
+    width: 100%;
+  }
+
+  .totalContainer {
+    margin: 2rem 0;
+    font-size: 1.2rem;
+  }
+
+  .totalText {
+    margin-bottom: 1.2rem;
+  }
+
+  .amount {
+    font-size: 1.6rem;
+    color: black;
+  }
+
+  .button {
+    width: fit-content;
+    height: 3rem;
+    border-radius: 1.5rem;
+    font-size: 1.1rem;
+  }
+}

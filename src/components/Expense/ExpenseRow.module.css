@@ -1,0 +1,136 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: whitesmoke;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  width: 60%;
+  font-weight: bold;
+}
+
+.amount {
+  display: flex;
+  align-items: center;
+  width: 30%;
+}
+
+.date {
+  margin-top: 0.4rem;
+}
+
+.tax {
+  flex-grow: 1;
+  text-align: end;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.taxInfo {
+}
+
+.buttonContainer {
+  width: 100%;
+  text-align: end;
+  margin-top: 0.4rem;
+}
+
+.editButton,
+.deleteButton {
+  /* display: none; */
+  height: 2rem;
+  padding: 0 1rem;
+  margin-left: 0.4rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.editButton {
+  background-color: black;
+  color: white;
+}
+.editButton:hover {
+  background-color: rgb(31, 30, 30);
+}
+
+.deleteButton {
+  background-color: gray;
+  color: white;
+}
+.deleteButton:hover {
+  background-color: rgb(97, 95, 95);
+}
+
+/* .row:hover .editButton,
+.row:hover .deleteButton {
+  display: inline;
+} */
+
+@media (min-width: 992px) {
+  .row {
+  }
+
+  .description {
+    width: 38%;
+  }
+
+  .amount {
+    width: 12%;
+  }
+
+  .date {
+    width: 18%;
+    order: 2;
+  }
+
+  .tax {
+    width: 8%;
+    flex-grow: 0;
+    font-size: 0.9rem;
+    order: 1;
+  }
+
+  .taxInfo {
+    /* display: none;     */
+  }
+
+  .buttonContainer {
+    width: 18%;
+    order: 3;
+  }
+
+  .editButton,
+  .deleteButton {
+    height: 2rem;
+    padding: 0 1rem;
+    margin-left: 0.4rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+
+  .editButton {
+    background-color: black;
+    color: white;
+  }
+  .editButton:hover {
+    background-color: rgb(31, 30, 30);
+  }
+
+  .deleteButton {
+    background-color: gray;
+    color: white;
+  }
+  .deleteButton:hover {
+    background-color: rgb(97, 95, 95);
+  }
+}

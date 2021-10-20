@@ -1,0 +1,14 @@
+.input {
+  height: 2.4rem;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  border-radius: 1.2rem;
+  border: none;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.input:disabled {
+  background-color: transparent;
+  border: none;
+}

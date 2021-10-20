@@ -1,0 +1,35 @@
+.listContainer {
+  margin: 2rem 0;
+}
+
+.listHeader {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .listHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.6rem 1rem;
+  }
+
+  .headerText {
+    font-weight: bold;
+  }
+
+  .headerText:nth-child(1) {
+    width: 38%;
+  }
+  .headerText:nth-child(2) {
+    width: 12%;
+  }
+  .headerText:nth-child(3) {
+    width: 8%;
+  }
+  .headerText:nth-child(4) {
+    width: 18%;
+  }
+  .headerText:nth-child(5) {
+    width: 18%;
+  }
+}
