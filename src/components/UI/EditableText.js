@@ -8,6 +8,8 @@ const EditableText = (props) => {
       value={props.value}
       placeholder={props.placeholder}
       disabled={!props.editable}
+      name={props.name}
+      onChange={props.onChange}
     />
   );
 };

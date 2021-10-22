@@ -1,15 +1,15 @@
+import { useSelector } from "react-redux";
+import { selectAllExpenses } from "../../reducers/allExpensesSlice";
+import { selectToBeExpenses } from "../../reducers/toBeExpensesSlice";
 import styles from "./ExpenseList.module.css";
 import ExpenseRow from "./ExpenseRow";
+import iconCoin from "../../assets/images/coin.png";
 
 const ExpenseList = () => {
-  const expense = {
-    _id: "abcde",
-    description: "Fruits",
-    amount: 13,
-    date: "2021-10-20",
-    createdAt: "2021-10-20",
-  };
+  const toBeExpenses = useSelector(selectToBeExpenses);
+  const allExpenses = useSelector(selectAllExpenses);
 
+  console.log(allExpenses);
   return (
     <div className={styles.listContainer}>
       <div className={styles.listHeader}>
@@ -20,9 +20,22 @@ const ExpenseList = () => {
         <span className={styles.headerText}></span>
       </div>
       <ul>
-        <ExpenseRow item={expense} mode="normal" />
-        <ExpenseRow item={expense} mode="normal" />
-        <ExpenseRow item={expense} mode="edit" />
+        {toBeExpenses.map((item) => (
+          <ExpenseRow key={item._id} item={item} />
+        ))}
+        {allExpenses.map((item) => (
+          <ExpenseRow key={item._id} item={item} />
+        ))}
+        {allExpenses.length === 0 && toBeExpenses.length === 0 && (
+          <div className={styles.emptyData}>
+            <img
+              className={styles.coinImage}
+              src={iconCoin}
+              alt="A yellow coin"
+            />
+            <p>No expenses yet</p>
+          </div>
+        )}
       </ul>
     </div>
   );
