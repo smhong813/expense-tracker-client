@@ -66,7 +66,7 @@ const ExpenseRow = (props) => {
   };
 
   const onDeleteHandler = (e) => {
-    dispatch(deleteExpense(props.item));
+    dispatch(deleteExpense(props.item._id));
   };
 
   return (

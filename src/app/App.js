@@ -1,14 +1,7 @@
-import styles from "./App.module.css";
-import ExpenseList from "../components/Expense/ExpenseList";
-import Header from "../components/Expense/Header";
+import ExpensePage from "../components/Expense/ExpensePage";
 
 function App() {
-  return (
-    <div className={styles.page}>
-      <Header />
-      <ExpenseList />
-    </div>
-  );
+  return <ExpensePage />;
 }
 
 export default App;

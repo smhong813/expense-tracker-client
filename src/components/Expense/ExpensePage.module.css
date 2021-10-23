@@ -1,0 +1,9 @@
+.page {
+  padding: 2rem;
+}
+
+@media (min-width: 998px) {
+  .page {
+    padding: 4rem;
+  }
+}
