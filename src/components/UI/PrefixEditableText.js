@@ -1,6 +1,12 @@
 import EditableText from "./EditableText";
 import styles from "./PrefixEditableText.module.css";
 
+/**
+ * Component for adding a prefix to EditableText
+ *
+ * @component
+ * @param {object} props
+ */
 const PrefixEditableText = (props) => {
   return (
     <div className={`${styles.container} ${props.className}`}>

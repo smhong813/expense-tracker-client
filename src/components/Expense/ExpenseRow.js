@@ -13,16 +13,28 @@ import EditableText from "../UI/EditableText";
 import PrefixEditableText from "../UI/PrefixEditableText";
 import styles from "./ExpenseRow.module.css";
 
-/*
-    It has three mode. 
-    Normal, not editable 
-    Edit, editable
-    New, editable, save and cancel button.
-*/
+/**
+ * Component for showing a row in the expense list.
+ * This component is for displaying the content of an expense and allowing users to edit(including add and delete).
+ *
+ * For its functions, it has three mode.
+ * - normal  : for a display (not editable)
+ * - new     : for adding (editable)
+ * - edit    : for an update and a deletion (editable)
+ *
+ * It has only two type of validation, and an error is displayed on this row if something is invalidate.
+ * 1. Checking empty value on both description and amount (date is filled with the default value - the date of today)
+ * 2. Checking the amount is less than or equal to 0
+ *
+ * When its mode is new or edit it uses inputs state,
+ * When its mode is normal it uses props.item
+ *
+ * @param {object} props
+ */
 const ExpenseRow = (props) => {
   const dispatch = useDispatch();
-  const [inputs, setInputs] = useState(props.item); // names is for not making confusing
-  const [error, setError] = useState("");
+  const [inputs, setInputs] = useState(props.item); // state for entered inputs.
+  const [error, setError] = useState(""); // state for error from validation.
 
   const onInputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -32,6 +44,7 @@ const ExpenseRow = (props) => {
     });
   };
 
+  // When the "Save" button is cliked.
   const onSaveHandler = (e) => {
     // Validation
     if (inputs.description.trim().length === 0 && inputs.amount.length === 0) {
@@ -44,15 +57,15 @@ const ExpenseRow = (props) => {
       return;
     }
 
+    // Call different API according to the mode of this row.
     if (props.item.mode === "new") {
-      // call API and then add it to the list
-      dispatch(addExpense(inputs)); // item from the server
+      dispatch(addExpense(inputs));
     } else if (props.item.mode === "edit") {
-      // call API and then update it frmo the list
-      dispatch(editExpense(inputs)); // item from the server
+      dispatch(editExpense(inputs));
     }
   };
 
+  // When the "Cancel" button is cliked.
   const onCancelHandler = (e) => {
     if (props.item.mode === "new") {
       dispatch(deleteToBeExpense(props.item));
@@ -61,10 +74,12 @@ const ExpenseRow = (props) => {
     }
   };
 
+  // When the "Edit" button is cliked.
   const onEditHandler = (e) => {
     dispatch(changeModeToEdit(props.item));
   };
 
+  // When the "Delete" button is cliked.
   const onDeleteHandler = (e) => {
     dispatch(deleteExpense(props.item._id));
   };

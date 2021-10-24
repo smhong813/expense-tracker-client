@@ -17,10 +17,25 @@ const initialState = {
   },
 };
 
+/**
+ * return an action's name from a string.
+ * i.e. apiStatus/getExpenses         -> getExpenses
+ * i.e. apiStatus/getExpenses/success -> getExpenses
+ *
+ * @param {string} type
+ * @returns
+ */
 const getActionName = (type) => {
   return type.split("/")[1];
 };
 
+/**
+ * Reducer for managing status for loading and error in each API
+ *
+ * @param {object} apiStatus
+ * @param {object} action
+ * @returns
+ */
 export const apiStatusReducer = (apiStatus = initialState, action) => {
   const actionName = getActionName(action.type);
   switch (action.type) {
@@ -61,6 +76,8 @@ export const apiStatusReducer = (apiStatus = initialState, action) => {
       return apiStatus;
   }
 };
+
+/* Action Creators */
 
 export const apiGetExpenses = () => {
   return {

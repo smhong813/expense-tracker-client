@@ -10,6 +10,16 @@ import iconCoin from "../../assets/images/coin.png";
 import { useEffect } from "react";
 import { selectApiStatus } from "../../reducers/apiStatusSlice";
 
+/**
+ * Component for showing the expense list.
+ *
+ * Users can add, update and delete a expense in this component.
+ * The reson why these functinalities are provided in one component is that I think it's the best way for users in terms of UX.
+ * For this implementation it uses two arrays. One(toBeExpenses) is for listing all expenses stored in DB, and the other one(allExpenses) is for getting inputs before an expense is added to DB.
+ *
+ *
+ * @component
+ */
 const ExpenseList = () => {
   const dispatch = useDispatch();
 
@@ -49,6 +59,13 @@ const ExpenseList = () => {
   );
 };
 
+/**
+ * Component for showing an error from the server.
+ * Any error returned from the server is displayed here.
+ *
+ * @component
+ * @param {object} apiStatus
+ */
 const Error = ({ apiStatus }) => {
   return (
     <>
@@ -68,6 +85,12 @@ const Error = ({ apiStatus }) => {
   );
 };
 
+/**
+ * Component for showing a loading image and text.
+ *
+ * A yellow coin is rotating while waiting for the data from the server.
+ * @component
+ */
 const Loading = () => {
   return (
     <div className={styles.loading}>
@@ -81,6 +104,11 @@ const Loading = () => {
   );
 };
 
+/**
+ * Component for showing a image and text that notify the list is empty.
+ *
+ * @component
+ */
 const NoExpenses = () => {
   return (
     <div className={styles.emptyData}>

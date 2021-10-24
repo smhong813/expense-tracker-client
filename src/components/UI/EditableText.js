@@ -1,5 +1,11 @@
 import styles from "./EditableText.module.css";
 
+/**
+ * Component for using display and input at once
+ *
+ * @component
+ * @param {object} props
+ */
 const EditableText = (props) => {
   return (
     <input
