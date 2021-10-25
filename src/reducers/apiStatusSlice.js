@@ -17,6 +17,22 @@ const initialState = {
   },
 };
 
+export const API_GET_EXPENSES = "apiStatus/getExpenses";
+export const API_GET_EXPENSES_SUCCESS = "apiStatus/getExpenses/success";
+export const API_GET_EXPENSES_FAIL = "apiStatus/getExpenses/fail";
+
+export const API_ADD_EXPENSE = "apiStatus/addExpense";
+export const API_ADD_EXPENSE_SUCCESS = "apiStatus/addExpense/success";
+export const API_ADD_EXPENSE_FAIL = "apiStatus/addExpense/fail";
+
+export const API_EDIT_EXPENSE = "apiStatus/editExpense";
+export const API_EDIT_EXPENSE_SUCCESS = "apiStatus/editExpense/success";
+export const API_EDIT_EXPENSE_FAIL = "apiStatus/editExpense/fail";
+
+export const API_DELETE_EXPENSE = "apiStatus/deleteExpense";
+export const API_DELETE_EXPENSE_SUCCESS = "apiStatus/deleteExpense/success";
+export const API_DELETE_EXPENSE_FAIL = "apiStatus/deleteExpense/fail";
+
 /**
  * return an action's name from a string.
  * i.e. apiStatus/getExpenses         -> getExpenses
@@ -39,10 +55,10 @@ const getActionName = (type) => {
 export const apiStatusReducer = (apiStatus = initialState, action) => {
   const actionName = getActionName(action.type);
   switch (action.type) {
-    case "apiStatus/getExpenses":
-    case "apiStatus/addExpense":
-    case "apiStatus/editExpense":
-    case "apiStatus/deleteExpense":
+    case API_GET_EXPENSES:
+    case API_ADD_EXPENSE:
+    case API_EDIT_EXPENSE:
+    case API_DELETE_EXPENSE:
       return {
         ...apiStatus,
         [actionName]: {
@@ -50,10 +66,10 @@ export const apiStatusReducer = (apiStatus = initialState, action) => {
           error: "",
         },
       };
-    case "apiStatus/getExpenses/success":
-    case "apiStatus/addExpense/success":
-    case "apiStatus/editExpense/success":
-    case "apiStatus/deleteExpense/success":
+    case API_GET_EXPENSES_SUCCESS:
+    case API_ADD_EXPENSE_SUCCESS:
+    case API_EDIT_EXPENSE_SUCCESS:
+    case API_DELETE_EXPENSE_SUCCESS:
       return {
         ...apiStatus,
         [actionName]: {
@@ -61,10 +77,10 @@ export const apiStatusReducer = (apiStatus = initialState, action) => {
           error: "",
         },
       };
-    case "apiStatus/getExpenses/fail":
-    case "apiStatus/addExpense/fail":
-    case "apiStatus/editExpense/fail":
-    case "apiStatus/deleteExpense/fail":
+    case API_GET_EXPENSES_FAIL:
+    case API_ADD_EXPENSE_FAIL:
+    case API_EDIT_EXPENSE_FAIL:
+    case API_DELETE_EXPENSE_FAIL:
       return {
         ...apiStatus,
         [actionName]: {
@@ -81,76 +97,76 @@ export const apiStatusReducer = (apiStatus = initialState, action) => {
 
 export const apiGetExpenses = () => {
   return {
-    type: "apiStatus/getExpenses",
+    type: API_GET_EXPENSES,
   };
 };
 
 export const apiGetExpensesSuccess = () => {
   return {
-    type: "apiStatus/getExpenses/success",
+    type: API_GET_EXPENSES_SUCCESS,
   };
 };
 
 export const apiGetExpensesFail = (error) => {
   return {
-    type: "apiStatus/getExpenses/fail",
+    type: API_GET_EXPENSES_FAIL,
     payload: error,
   };
 };
 
 export const apiAddExpense = () => {
   return {
-    type: "apiStatus/addExpense",
+    type: API_ADD_EXPENSE,
   };
 };
 
 export const apiAddExpenseSuccess = () => {
   return {
-    type: "apiStatus/addExpense/success",
+    type: API_ADD_EXPENSE_SUCCESS,
   };
 };
 
 export const apiAddExpenseFail = (error) => {
   return {
-    type: "apiStatus/addExpense/fail",
+    type: API_ADD_EXPENSE_FAIL,
     payload: error,
   };
 };
 
 export const apiEditExpense = () => {
   return {
-    type: "apiStatus/editExpense",
+    type: API_EDIT_EXPENSE,
   };
 };
 
 export const apiEditExpenseSuccess = () => {
   return {
-    type: "apiStatus/editExpense/success",
+    type: API_EDIT_EXPENSE_SUCCESS,
   };
 };
 
 export const apiEditExpenseFail = (error) => {
   return {
-    type: "apiStatus/editExpense/fail",
+    type: API_EDIT_EXPENSE_FAIL,
     payload: error,
   };
 };
 
 export const apiDeleteExpense = () => {
   return {
-    type: "apiStatus/deleteExpense",
+    type: API_DELETE_EXPENSE,
   };
 };
 
 export const apiDeleteExpenseSuccess = () => {
   return {
-    type: "apiStatus/deleteExpense/success",
+    type: API_DELETE_EXPENSE_SUCCESS,
   };
 };
 
 export const apiDeleteExpenseFail = (error) => {
   return {
-    type: "apiStatus/deleteExpense/fail",
+    type: API_DELETE_EXPENSE_FAIL,
     payload: error,
   };
 };

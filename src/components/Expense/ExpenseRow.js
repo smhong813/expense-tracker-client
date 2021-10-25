@@ -13,6 +13,10 @@ import EditableText from "../UI/EditableText";
 import PrefixEditableText from "../UI/PrefixEditableText";
 import styles from "./ExpenseRow.module.css";
 
+export const MODE_NEW = "new";
+export const MODE_EDIT = "edit";
+export const MODE_NORMAL = "normal";
+
 /**
  * Component for showing a row in the expense list.
  * This component is for displaying the content of an expense and allowing users to edit(including add and delete).
@@ -35,6 +39,7 @@ const ExpenseRow = (props) => {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState(props.item); // state for entered inputs.
   const [error, setError] = useState(""); // state for error from validation.
+  const isModeNormal = props.item.mode === MODE_NORMAL;
 
   const onInputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -58,18 +63,18 @@ const ExpenseRow = (props) => {
     }
 
     // Call different API according to the mode of this row.
-    if (props.item.mode === "new") {
+    if (props.item.mode === MODE_NEW) {
       dispatch(addExpense(inputs));
-    } else if (props.item.mode === "edit") {
+    } else if (props.item.mode === MODE_EDIT) {
       dispatch(editExpense(inputs));
     }
   };
 
   // When the "Cancel" button is cliked.
   const onCancelHandler = (e) => {
-    if (props.item.mode === "new") {
+    if (props.item.mode === MODE_NEW) {
       dispatch(deleteToBeExpense(props.item));
-    } else if (props.item.mode === "edit") {
+    } else if (props.item.mode === MODE_EDIT) {
       dispatch(changeModeToNormal(props.item));
     }
   };
@@ -90,12 +95,8 @@ const ExpenseRow = (props) => {
         className={`${styles.description} ${styles[props.item.mode]}`}
         type="text"
         placeholder="Description"
-        value={
-          props.item.mode !== "normal"
-            ? inputs.description
-            : props.item.description
-        }
-        editable={props.item.mode !== "normal"}
+        value={!isModeNormal ? inputs.description : props.item.description}
+        editable={!isModeNormal}
         name="description"
         onChange={onInputChangeHandler}
       />
@@ -104,12 +105,8 @@ const ExpenseRow = (props) => {
         type="number"
         placeholder="Amount"
         prefix="$"
-        value={
-          props.item.mode !== "normal"
-            ? inputs.amount
-            : (+props.item.amount).toFixed(2)
-        }
-        editable={props.item.mode !== "normal"}
+        value={!isModeNormal ? inputs.amount : (+props.item.amount).toFixed(2)}
+        editable={!isModeNormal}
         name="amount"
         onChange={onInputChangeHandler}
       />
@@ -117,20 +114,19 @@ const ExpenseRow = (props) => {
         className={styles.date}
         type="date"
         placeholder="Date"
-        value={props.item.mode !== "normal" ? inputs.date : props.item.date}
-        editable={props.item.mode !== "normal"}
+        value={!isModeNormal ? inputs.date : props.item.date}
+        editable={!isModeNormal}
         name="date"
         onChange={onInputChangeHandler}
       />
       <span className={styles.tax}>
         +
-        {(
-          (props.item.mode !== "normal" ? +inputs.amount : props.item.amount) *
-          0.15
-        ).toFixed(2)}{" "}
+        {((!isModeNormal ? +inputs.amount : props.item.amount) * 0.15).toFixed(
+          2
+        )}{" "}
         <span className={styles.taxInfo}>(15% tax)</span>
       </span>
-      {props.item.mode === "normal" && (
+      {isModeNormal && (
         <div className={styles.buttonContainer}>
           <button className={styles.editButton} onClick={onEditHandler}>
             Edit
@@ -140,7 +136,7 @@ const ExpenseRow = (props) => {
           </button>
         </div>
       )}
-      {props.item.mode !== "normal" && (
+      {!isModeNormal && (
         <div className={styles.buttonContainer}>
           <button className={styles.saveButton} onClick={onSaveHandler}>
             Save

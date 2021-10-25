@@ -1,4 +1,5 @@
 import * as api from "../api/api";
+import { MODE_EDIT, MODE_NORMAL } from "../components/Expense/ExpenseRow";
 import * as dateUtils from "../utils/date";
 import {
   apiAddExpense,
@@ -19,6 +20,13 @@ import { deleteToBeExpense } from "./toBeExpensesSlice";
 // Error messsage for handling an unexpected error from the server (user-friendly)
 const GLOBAL_ERROR_MESSAGE = "Something went wrong. Please try again later.";
 
+export const LOAD_EXPENSES = "allExpenses/loadExpenses";
+export const ADD_EXPENSE = "allExpenses/addExpense";
+export const EDIT_EXPENSE = "allExpenses/editExpense";
+export const DELETE_EXPENSE = "allExpenses/deleteExpense";
+export const CHANGE_MODE_TO_EDIT = "allExpenses/changeModeToEdit";
+export const CHANGE_MODE_TO_NORMAL = "allExpenses/changeModeToNormal";
+
 const initialState = [];
 /**
  * Reducer for managing expenses from the server, and performing adding, updating and deleting an expense
@@ -29,32 +37,32 @@ const initialState = [];
  */
 export const allExpensesReducer = (allExpenses = initialState, action) => {
   switch (action.type) {
-    case "allExpenses/loadExpenses":
+    case LOAD_EXPENSES:
       return [...action.payload];
-    case "allExpenses/addExpense":
+    case ADD_EXPENSE:
       return [...allExpenses, action.payload];
-    case "allExpenses/editExpense":
+    case EDIT_EXPENSE:
       return allExpenses.map((item) =>
         item._id !== action.payload._id ? item : action.payload
       );
-    case "allExpenses/deleteExpense":
+    case DELETE_EXPENSE:
       return allExpenses.filter((item) => item._id !== action.payload);
-    case "allExpenses/changeModeToEdit": // When the "Edit" button clicked
+    case CHANGE_MODE_TO_EDIT: // When the "Edit" button clicked
       return allExpenses.map((item) =>
         item._id !== action.payload._id
           ? item
           : {
               ...item,
-              mode: "edit",
+              mode: MODE_EDIT,
             }
       );
-    case "allExpenses/changeModeToNormal": // When the "Cancel" button clicked
+    case CHANGE_MODE_TO_NORMAL: // When the "Cancel" button clicked
       return allExpenses.map((item) =>
         item._id !== action.payload._id
           ? item
           : {
               ...item,
-              mode: "normal",
+              mode: MODE_NORMAL,
             }
       );
     default:
@@ -70,11 +78,11 @@ export const loadExpenses = () => async (dispatch, getState) => {
     dispatch(apiGetExpensesSuccess()); // set loading to false, error to none
     dispatch({
       // set the data from the server to allExpenses, at this time set its mode to normal(for a display), date to YYYY-MM-DD(for displaying the date on the input tag with date type)
-      type: "allExpenses/loadExpenses",
+      type: LOAD_EXPENSES,
       payload: data.map((item) => {
         return {
           ...item,
-          mode: "normal",
+          mode: MODE_NORMAL,
           date: dateUtils.get4Y2M2D(item.date),
         };
       }),
@@ -100,10 +108,10 @@ export const addExpense = (expense) => async (dispatch, getState) => {
     const { data } = await api.addExpense(expense);
     dispatch(deleteToBeExpense(toBeExpense));
     dispatch({
-      type: "allExpenses/addExpense",
+      type: ADD_EXPENSE,
       payload: {
         ...data,
-        mode: "normal",
+        mode: MODE_NORMAL,
         date: dateUtils.get4Y2M2D(data.date),
       },
     });
@@ -122,10 +130,10 @@ export const editExpense = (expense) => async (dispatch, getState) => {
     dispatch(apiEditExpense());
     const { data } = await api.editExpense(expense);
     dispatch({
-      type: "allExpenses/editExpense",
+      type: EDIT_EXPENSE,
       payload: {
         ...data,
-        mode: "normal",
+        mode: MODE_NORMAL,
         date: dateUtils.get4Y2M2D(data.date),
       },
     });
@@ -144,7 +152,7 @@ export const deleteExpense = (id) => async (dispatch, getState) => {
     dispatch(apiDeleteExpense());
     await api.deleteExpense(id);
     dispatch({
-      type: "allExpenses/deleteExpense",
+      type: DELETE_EXPENSE,
       payload: id,
     });
     dispatch(apiDeleteExpenseSuccess());
@@ -159,14 +167,14 @@ export const deleteExpense = (id) => async (dispatch, getState) => {
 
 export function changeModeToEdit(expense) {
   return {
-    type: "allExpenses/changeModeToEdit",
+    type: CHANGE_MODE_TO_EDIT,
     payload: expense,
   };
 }
 
 export function changeModeToNormal(expense) {
   return {
-    type: "allExpenses/changeModeToNormal",
+    type: CHANGE_MODE_TO_NORMAL,
     payload: expense,
   };
 }

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectAllExpenses } from "../../reducers/allExpensesSlice";
+import { selectApiStatus } from "../../reducers/apiStatusSlice";
 import { addToBeExpense } from "../../reducers/toBeExpensesSlice";
 import styles from "./Header.module.css";
 
@@ -12,6 +13,7 @@ import styles from "./Header.module.css";
 const Header = () => {
   const dispatch = useDispatch();
   const expenses = useSelector(selectAllExpenses); // Expenses for calculating the sub-total and the total with taxes
+  const apiStatus = useSelector(selectApiStatus); // For making the button "add new expense" invisible when expenses are in loading status.
 
   // Calculate the sub-total
   const subtotal = expenses.reduce(
@@ -38,9 +40,11 @@ const Header = () => {
           <span className={styles.amount}>${totalWithTaxes.toFixed(2)}</span>
         </p>
       </div>
-      <button className={styles.button} onClick={onAddNewExpenseHandler}>
-        Add new expense
-      </button>
+      {!apiStatus.getExpenses.loading && (
+        <button className={styles.button} onClick={onAddNewExpenseHandler}>
+          Add new expense
+        </button>
+      )}
     </header>
   );
 };
